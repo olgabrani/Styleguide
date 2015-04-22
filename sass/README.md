@@ -3,10 +3,10 @@
 ## Formatting
 
 * Use the SCSS syntax.
+* Use a single space before and no space after the !
 * Use hyphens when naming mixins, extends, classes, functions & variables: `span-columns` not `span_columns` or `spanColumns`.
 * Use one space between property and value: `width: 20px` not `width:20px`.
-* Use a blank line above a selector that has styles.
-* Prefer hex color codes `#fff` or `#FFF`.
+* Prefer hex color codes `#fff`.
 * Prefer color: #fff instead of color: white
 * Use `//` for comment blocks not `/* */`.
 * Use one space between selector and `{`.
