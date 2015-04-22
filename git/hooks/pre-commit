@@ -1,0 +1,36 @@
+#!/bin/sh
+
+command -v scss-lint >/dev/null 2>&1 || { # http://tldp.org/LDP/abs/html/io-redirection.html
+    echo >&2 "\033[1mscss-lint is not installed. Please install it using \033[41mnpm install -g scss-lint\033[0m."; 
+    exit 1; 
+}
+
+files=$(git diff --name-only --cached | grep ".scss$")    # use --cached because we run this after 'git add'; js files only.
+
+if [ "$files" = "" ]; then
+    echo "No files found. Exiting.";
+    exit 0;
+fi
+
+pass=true;
+
+echo "\n\033[1mRunning scss-lint on the following scripts:\n"
+for file in ${files}; do
+    result=$(scss-lint -c $(pwd)/snf-ui-app/ui-web/app/styles/.scss-lint.yml ${file})
+    if [ "$result" != "" ]; then
+        echo "\t\033[31m \xE2\x9C\x97 Fail \t\033[0m $file";
+        echo "$result"; # quotes to preserve newlines
+        pass=false;
+    else
+        echo "\t\033[32m \xE2\x9C\x93 OK \t\t\033[0m $file";
+    fi
+done
+
+echo "\n\033[1mscss-lint check complete.\n";
+
+if ! $pass; then
+   echo "\033[41mCOMMIT FAILED:\033[0m \t\033[31mscss-lint found errors or potential problems in your SCSS code. Please review these files before committing.\033[0m\n";
+    exit 1;
+else
+    echo "\033[42mCOMMIT SUCCESFULL\033[0m\n";
+fi

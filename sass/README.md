@@ -1,5 +1,10 @@
 # Sass
 
+Use [scss-lint](https://github.com/brigade/scss-lint) to keep SCSS files clean and readable.    
+Include file [.scss-lint.yml](.scss-lint.yml) in the current working directory.     
+A git [pre-commit hook](../git/hooks/pre-commit) should be used to run scss-lint before each commit.
+
+
 ## Formatting
 
 * Use the SCSS syntax.
